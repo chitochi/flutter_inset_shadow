@@ -1,0 +1,11 @@
+name: flutter_inset_box_shadow
+description: Extend BoxShadow to support inner shadows.
+version: 1.0.0
+repository: https://github.com/qoumo/flutter_inset_box_shadow
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
