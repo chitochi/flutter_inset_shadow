@@ -24,6 +24,88 @@ class BoxDecoration extends painting.BoxDecoration {
           shape: shape,
         );
 
+  /// Returns a new box decoration that is scaled by the given factor.
+  BoxDecoration scale(double factor) {
+    return BoxDecoration(
+      color: Color.lerp(null, color, factor),
+      image: image, // TODO(ianh): fade the image from transparent
+      border: BoxBorder.lerp(null, border, factor),
+      borderRadius: BorderRadiusGeometry.lerp(null, borderRadius, factor),
+      boxShadow: BoxShadow.lerpList(null, boxShadow as List<BoxShadow>, factor),
+      gradient: gradient?.scale(factor),
+      shape: shape,
+    );
+  }
+
+  @override
+  BoxDecoration? lerpFrom(Decoration? a, double t) {
+    if (a == null) return scale(t);
+    if (a is BoxDecoration) return BoxDecoration.lerp(a, this, t);
+    return super.lerpFrom(a, t) as BoxDecoration?;
+  }
+
+  @override
+  BoxDecoration? lerpTo(Decoration? b, double t) {
+    if (b == null) return scale(1.0 - t);
+    if (b is BoxDecoration) return BoxDecoration.lerp(this, b, t);
+    return super.lerpTo(b, t) as BoxDecoration?;
+  }
+
+  /// Linearly interpolate between two box decorations.
+  ///
+  /// Interpolates each parameter of the box decoration separately.
+  ///
+  /// The [shape] is not interpolated. To interpolate the shape, consider using
+  /// a [ShapeDecoration] with different border shapes.
+  ///
+  /// If both values are null, this returns null. Otherwise, it returns a
+  /// non-null value. If one of the values is null, then the result is obtained
+  /// by applying [scale] to the other value. If neither value is null and `t ==
+  /// 0.0`, then `a` is returned unmodified; if `t == 1.0` then `b` is returned
+  /// unmodified. Otherwise, the values are computed by interpolating the
+  /// properties appropriately.
+  ///
+  /// {@macro dart.ui.shadow.lerp}
+  ///
+  /// See also:
+  ///
+  ///  * [Decoration.lerp], which can interpolate between any two types of
+  ///    [Decoration]s, not just [BoxDecoration]s.
+  ///  * [lerpFrom] and [lerpTo], which are used to implement [Decoration.lerp]
+  ///    and which use [BoxDecoration.lerp] when interpolating two
+  ///    [BoxDecoration]s or a [BoxDecoration] to or from null.
+  static BoxDecoration? lerp(BoxDecoration? a, BoxDecoration? b, double t) {
+    if (a == null && b == null) {
+      return null;
+    }
+    if (a == null) {
+      return b!.scale(t);
+    }
+    if (b == null) {
+      return a.scale(1.0 - t);
+    }
+    if (t == 0.0) {
+      return a;
+    }
+    if (t == 1.0) {
+      return b;
+    }
+    return BoxDecoration(
+      color: Color.lerp(a.color, b.color, t),
+      image: t < 0.5 ? a.image : b.image, // TODO(ianh): cross-fade the image
+      border: BoxBorder.lerp(a.border, b.border, t),
+      borderRadius:
+          BorderRadiusGeometry.lerp(a.borderRadius, b.borderRadius, t),
+      boxShadow: BoxShadow.lerpList(
+        a.boxShadow as List<BoxShadow>,
+        b.boxShadow as List<BoxShadow>,
+        t,
+      ),
+      gradient: Gradient.lerp(a.gradient, b.gradient, t),
+      shape: t < 0.5 ? a.shape : b.shape,
+    );
+  }
+
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
     assert(onChanged != null || image == null);
