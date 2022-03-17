@@ -11,7 +11,7 @@ This package extends `BoxShadow` and `BoxDecoration` to support the `inset` prop
 
 ## Example
 
-![A simple neumorphic container](/example.png)
+![A simple neumorphic container](https://raw.githubusercontent.com/qoumo/flutter_inset_box_shadow/main/example.png)
 
 ```dart
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
