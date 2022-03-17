@@ -1,6 +1,6 @@
 name: flutter_inset_box_shadow
 description: This package extends BoxShadow and BoxDecoration to support the inset property.
-version: 1.0.2
+version: 1.0.3
 repository: https://github.com/qoumo/flutter_inset_box_shadow
 
 dependencies:
