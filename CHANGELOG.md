@@ -1,3 +1,10 @@
+# [1.0.5]
+Add `copyWith` to `BoxDecoration`.
+
+# [1.0.4]
+
+Fix README.md.
+
 # [1.0.3]
 
 Add example.
