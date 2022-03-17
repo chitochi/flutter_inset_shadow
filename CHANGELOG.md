@@ -1,3 +1,7 @@
+# [1.0.7]
+
+Remove debug `print`.
+
 # [1.0.6]
 
 Support `BoxShape.circle`.

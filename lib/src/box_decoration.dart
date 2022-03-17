@@ -37,8 +37,6 @@ class BoxDecoration extends painting.BoxDecoration {
     BlendMode? backgroundBlendMode,
     BoxShape? shape,
   }) {
-    print('copyWith called');
-
     assert(boxShadow is List<BoxShadow>?);
 
     return BoxDecoration(
