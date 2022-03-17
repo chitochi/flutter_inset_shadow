@@ -24,7 +24,35 @@ class BoxDecoration extends painting.BoxDecoration {
           shape: shape,
         );
 
+  /// Creates a copy of this object but with the given fields replaced with the
+  /// new values.
+  @override
+  BoxDecoration copyWith({
+    Color? color,
+    DecorationImage? image,
+    BoxBorder? border,
+    BorderRadiusGeometry? borderRadius,
+    List<painting.BoxShadow>? boxShadow,
+    Gradient? gradient,
+    BlendMode? backgroundBlendMode,
+    BoxShape? shape,
+  }) {
+    assert(boxShadow is List<BoxShadow>?);
+
+    return BoxDecoration(
+      color: color ?? this.color,
+      image: image ?? this.image,
+      border: border ?? this.border,
+      borderRadius: borderRadius ?? this.borderRadius,
+      boxShadow: (boxShadow ?? this.boxShadow) as List<BoxShadow>?,
+      gradient: gradient ?? this.gradient,
+      backgroundBlendMode: backgroundBlendMode ?? this.backgroundBlendMode,
+      shape: shape ?? this.shape,
+    );
+  }
+
   /// Returns a new box decoration that is scaled by the given factor.
+  @override
   BoxDecoration scale(double factor) {
     return BoxDecoration(
       color: Color.lerp(null, color, factor),
