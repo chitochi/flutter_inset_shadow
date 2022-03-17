@@ -1,3 +1,7 @@
+# [1.0.6]
+
+Support `BoxShape.circle`.
+
 # [1.0.5]
 Add `copyWith` to `BoxDecoration`.
 

@@ -37,6 +37,8 @@ class BoxDecoration extends painting.BoxDecoration {
     BlendMode? backgroundBlendMode,
     BoxShape? shape,
   }) {
+    print('copyWith called');
+
     assert(boxShadow is List<BoxShadow>?);
 
     return BoxDecoration(
@@ -122,8 +124,11 @@ class BoxDecoration extends painting.BoxDecoration {
       color: Color.lerp(a.color, b.color, t),
       image: t < 0.5 ? a.image : b.image, // TODO(ianh): cross-fade the image
       border: BoxBorder.lerp(a.border, b.border, t),
-      borderRadius:
-          BorderRadiusGeometry.lerp(a.borderRadius, b.borderRadius, t),
+      borderRadius: BorderRadiusGeometry.lerp(
+        a.borderRadius,
+        b.borderRadius,
+        t,
+      ),
       boxShadow: BoxShadow.lerpList(
         a.boxShadow as List<BoxShadow>,
         b.boxShadow as List<BoxShadow>,
@@ -276,15 +281,18 @@ class _InsetBoxDecorationPainter extends BoxPainter {
 
       final color = boxShadow.color.withOpacity(1);
 
-      final borderRadius = (_decoration.borderRadius ?? BorderRadius.zero)
-          .resolve(textDirection);
+      final borderRadiusGeometry = _decoration.borderRadius ??
+          (_decoration.shape == BoxShape.circle
+              ? BorderRadius.circular(rect.longestSide)
+              : BorderRadius.zero);
+      final borderRadius = borderRadiusGeometry.resolve(textDirection);
 
       final clipRRect = borderRadius.toRRect(rect);
 
       final innerRect = rect.deflate(boxShadow.spreadRadius);
       if (innerRect.isEmpty) {
-        canvas.drawRRect(clipRRect, Paint()..color);
-        continue;
+        final paint = Paint()..color = color;
+        canvas.drawRRect(clipRRect, paint);
       }
 
       var innerRRect = borderRadius.toRRect(innerRect);
