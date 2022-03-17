@@ -246,36 +246,33 @@ class _InsetBoxDecorationPainter extends BoxPainter {
         continue;
       }
 
-      final clipRRect =
-          _decoration.borderRadius!.resolve(textDirection).toRRect(rect);
+      final color = boxShadow.color.withOpacity(1);
 
-      final innerRRect = _decoration.borderRadius!
-          .resolve(textDirection)
-          .toRRect(rect)
-          .shift(boxShadow.offset)
-          .deflate(boxShadow.blurRadius)
-          .inflate(boxShadow.spreadRadius);
+      final borderRadius = (_decoration.borderRadius ?? BorderRadius.zero)
+          .resolve(textDirection);
 
-      final outerRRect = _decoration.borderRadius!
-          .resolve(textDirection)
-          .toRRect(Rect.fromLTRB(
-            math.min(innerRRect.left, clipRRect.left),
-            math.min(innerRRect.top, clipRRect.top),
-            math.max(innerRRect.right, clipRRect.right),
-            math.max(innerRRect.bottom, clipRRect.bottom),
-          ));
+      final clipRRect = borderRadius.toRRect(rect);
+
+      final innerRect = rect.deflate(boxShadow.spreadRadius);
+      if (innerRect.isEmpty) {
+        canvas.drawRRect(clipRRect, Paint()..color);
+        continue;
+      }
+
+      var innerRRect = borderRadius.toRRect(innerRect);
 
       canvas.save();
       canvas.clipRRect(clipRRect);
+
+      final outerRect = _areaCastingShadowInHole(rect, boxShadow);
+
       canvas.drawDRRect(
-        outerRRect,
-        innerRRect.inflate(boxShadow.blurRadius),
-        Paint()..color = boxShadow.color,
-      );
-      canvas.drawDRRect(
-        outerRRect,
-        innerRRect,
-        boxShadow.toPaint(),
+        RRect.fromRectAndRadius(outerRect, Radius.zero),
+        innerRRect.shift(boxShadow.offset),
+        Paint()
+          ..color = color
+          ..colorFilter = ColorFilter.mode(color, BlendMode.srcIn)
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, boxShadow.blurSigma),
       );
       canvas.restore();
     }
@@ -310,4 +307,34 @@ class _InsetBoxDecorationPainter extends BoxPainter {
   String toString() {
     return '_InsetBoxDecorationPainter for $_decoration';
   }
+}
+
+Rect _areaCastingShadowInHole(Rect holeRect, BoxShadow shadow) {
+  var bounds = holeRect;
+  bounds = bounds.inflate(shadow.blurRadius);
+
+  if (shadow.spreadRadius < 0) {
+    bounds = bounds.inflate(-shadow.spreadRadius);
+  }
+
+  final offsetBounds = bounds.shift(shadow.offset);
+
+  return _unionRects(bounds, offsetBounds);
+}
+
+Rect _unionRects(Rect a, Rect b) {
+  if (a.isEmpty) {
+    return b;
+  }
+
+  if (b.isEmpty) {
+    return a;
+  }
+
+  final left = math.min(a.left, b.left);
+  final top = math.min(a.top, b.top);
+  final right = math.max(a.right, b.right);
+  final bottom = math.max(a.bottom, b.bottom);
+
+  return Rect.fromLTRB(left, top, right, bottom);
 }
