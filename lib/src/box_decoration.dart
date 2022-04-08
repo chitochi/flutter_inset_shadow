@@ -277,7 +277,7 @@ class _InsetBoxDecorationPainter extends BoxPainter {
         continue;
       }
 
-      final color = boxShadow.color.withOpacity(1);
+      final color = boxShadow.color;
 
       final borderRadiusGeometry = _decoration.borderRadius ??
           (_decoration.shape == BoxShape.circle
