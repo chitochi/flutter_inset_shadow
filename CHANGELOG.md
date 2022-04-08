@@ -1,3 +1,7 @@
+# [1.0.8]
+
+Fix opacity.
+
 # [1.0.7]
 
 Remove debug `print`.
