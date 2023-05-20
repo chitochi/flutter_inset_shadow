@@ -305,7 +305,7 @@ class _InsetBoxDecorationPainter extends BoxPainter {
         innerRRect.shift(boxShadow.offset),
         Paint()
           ..color = color
-          ..colorFilter = ColorFilter.mode(color, BlendMode.srcIn)
+          ..colorFilter = ColorFilter.mode(color, BlendMode.src)
           ..maskFilter = MaskFilter.blur(BlurStyle.normal, boxShadow.blurSigma),
       );
       canvas.restore();
