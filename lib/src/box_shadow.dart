@@ -121,7 +121,7 @@ class BoxShadow extends painting.BoxShadow {
 
   @override
   int get hashCode =>
-      hashValues(color, offset, blurRadius, spreadRadius, blurStyle, inset);
+      Object.hash(color, offset, blurRadius, spreadRadius, blurStyle, inset);
 
   @override
   String toString() =>
