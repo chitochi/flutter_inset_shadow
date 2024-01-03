@@ -16,6 +16,7 @@ class BoxDecoration extends painting.BoxDecoration {
     BoxShape shape = BoxShape.rectangle,
   }) : super(
           color: color,
+          image: image,
           border: border,
           borderRadius: borderRadius,
           boxShadow: boxShadow,
