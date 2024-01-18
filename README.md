@@ -1,4 +1,4 @@
-# Flutter Inset Box Shadow
+# Flutter Box Shadow
 
 Flutter currently does not support the `inset` property for shadows. This type of shadow is for example used in Neumorphism.
 
@@ -11,11 +11,11 @@ This package extends `BoxShadow` and `BoxDecoration` to support the `inset` prop
 
 ## Example
 
-![A simple neumorphic container](https://raw.githubusercontent.com/qoumo/flutter_inset_box_shadow/main/example.png)
+![A simple neumorphic container](https://raw.githubusercontent.com/chitochi/flutter_inset_shadow/main/example.png)
 
 ```dart
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
-import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 
 void main() {
   runApp(const ExampleApp());
@@ -68,14 +68,14 @@ class ExampleApp extends StatelessWidget {
 First, add the package:
 
 ```
-flutter pub add flutter_inset_box_shadow
+flutter pub add flutter_inset_shadow
 ```
 
 Then, import it as follows:
 
 ```dart
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
-import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 ```
 
 It is necessary to hide `BoxDecoration` and `BoxShadow` because this library replaces them.
