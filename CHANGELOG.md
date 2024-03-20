@@ -1,3 +1,7 @@
+# [2.0.2]
+
+The repository URL changed.
+
 # [2.0.1]
 
 Update README.md.
