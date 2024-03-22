@@ -1,3 +1,5 @@
 pubspec.lock
 .packages
 .dart_tool/
+.envrc
+.direnv/
