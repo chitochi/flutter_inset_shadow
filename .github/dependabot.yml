@@ -2,10 +2,12 @@ version: 2
 updates:
   - package-ecosystem: "pub"
     directory: "/"
+    versioning-strategy: "widen"
     schedule:
       interval: "daily"
   - package-ecosystem: "pub"
     directory: "/example"
+    versioning-strategy: "increase"
     schedule:
       interval: "daily"
   - package-ecosystem: "github-actions"
