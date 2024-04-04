@@ -278,6 +278,12 @@ class _InsetBoxDecorationPainter extends BoxPainter {
         continue;
       }
 
+      if (_decoration.shape == BoxShape.circle) {
+        final Offset center = rect.center;
+        final double radius = rect.shortestSide / 2.0;
+        rect = Rect.fromCircle(center: center, radius: radius);
+      }
+
       final color = boxShadow.color;
 
       final borderRadiusGeometry = _decoration.borderRadius ??
