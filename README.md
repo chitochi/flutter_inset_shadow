@@ -4,15 +4,17 @@ Flutter currently does not support the `inset` property for shadows. This type o
 
 This package extends `BoxShadow` and `BoxDecoration` to support the `inset` property.
 
-## ⚠️ What happened to `flutter_inset_box_shadow`?
-
-Previously, this package was called `flutter_inset_box_shadow`.
-
-Unfortunately, I've lost access to the verified publisher, allowing me to publish updates to the package.
-
-So I decided to publish the package under a new name.
-
-For more information, you can read https://github.com/chitochi/flutter_inset_shadow/issues/7. 😄
+> [!IMPORTANT]
+>
+> **What happened to `flutter_inset_box_shadow`?**
+>
+> Previously, this package was called `flutter_inset_box_shadow`.
+>
+> Unfortunately, I've lost access to the verified publisher, allowing me to publish updates to the package.
+>
+> So I decided to publish the package under a new name.
+>
+> For more information, you can read https://github.com/chitochi/flutter_inset_shadow/issues/7. 😄
 
 ## Features
 
